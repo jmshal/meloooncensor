@@ -1,0 +1,4 @@
+name: Censor
+main: io.github.jacobmarshall.censor.Censor
+version: 3.0.0
+author: Jacob Marshall <jacob@manage.net.nz>
