@@ -1,12 +1,14 @@
 package io.github.jacobmarshall.meloooncensor.filter;
 
-import java.util.List;
+import io.github.jacobmarshall.meloooncensor.MelooonCensor;
+import io.github.jacobmarshall.meloooncensor.config.Configuration;
+
 import java.util.regex.Pattern;
 
 public class ClassicFilter extends Filter {
 
-    public ClassicFilter(char replace, List<String> censor, List<String> ignore) {
-        super(replace, censor, ignore);
+    public ClassicFilter (Configuration config) {
+        super(config);
     }
 
     @Override
@@ -27,13 +29,13 @@ public class ClassicFilter extends Filter {
                 censoredMessage.append(" ");
             }
 
-            if (wordIsOrContains(word, censor)) {
-                if (wordIsOrContains(word, ignore)) {
+            if (isCensoredWord(word)) {
+                if (isIgnoredWord(word)) {
                     // If the word is/contains an ignored word, allow the word
                     censoredMessage.append(word);
                 } else {
                     // Censor the word if it contains a bad word & isn't an ignored one
-                    censoredMessage.append(censorWord(word, word, true));
+                    censoredMessage.append(getCensoredWord(word, word, true));
                 }
             } else {
                 // Doesn't match a censored word, continue as normal

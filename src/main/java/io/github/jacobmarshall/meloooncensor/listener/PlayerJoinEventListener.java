@@ -1,4 +1,4 @@
-package io.github.jacobmarshall.meloooncensor.listeners;
+package io.github.jacobmarshall.meloooncensor.listener;
 
 import org.bukkit.event.Listener;
 
