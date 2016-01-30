@@ -80,7 +80,6 @@ public class MelooonCensor extends JavaPlugin {
 
     @Override
     public void onEnable () {
-        getLogger().info("onEnable running...");
         setupConfig();
         loadConfig();
         startMetrics();
