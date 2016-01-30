@@ -15,7 +15,7 @@ public class MelooonCensor extends JavaPlugin {
 
     static final String DEFAULT_TYPE = "classic";
     static final char DEFAULT_CHAR = '*';
-    static final String[] DEFAULT_LIST = new String[] {"fuck", "shit"};
+    static final String[] DEFAULT_LIST = new String[] {"fuck", "shit", "piss", "bitch"};
     static final String[] DEFAULT_IGNORE = new String[] {"shitsu"};
     static final String DEFAULT_MESSAGE = "Please don't use that kind of language on this server.";
 
