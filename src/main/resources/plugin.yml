@@ -1,4 +1,4 @@
-name: Censor
-main: io.github.jacobmarshall.censor.Censor
+name: MelooonCensor
+main: io.github.jacobmarshall.meloooncensor.MelooonCensor
 version: 3.0.0
 author: Jacob Marshall <jacob@manage.net.nz>
