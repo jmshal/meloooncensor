@@ -5,6 +5,7 @@ import io.github.jacobmarshall.meloooncensor.config.Configuration;
 import io.github.jacobmarshall.meloooncensor.listener.ChatEventListener;
 import io.github.jacobmarshall.meloooncensor.command.CensorCommandExecutor;
 import io.github.jacobmarshall.meloooncensor.listener.PlayerJoinEventListener;
+import io.github.jacobmarshall.meloooncensor.listener.SignChangeEventListener;
 import io.github.jacobmarshall.meloooncensor.listener.UnhandledExceptionListener;
 import io.github.jacobmarshall.meloooncensor.updater.CheckForUpdatesTask;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -41,6 +42,10 @@ public class MelooonCensor extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(
             new ChatEventListener(config), this
+        );
+
+        getServer().getPluginManager().registerEvents(
+            new SignChangeEventListener(config), this
         );
 
         getServer().getPluginManager().registerEvents(

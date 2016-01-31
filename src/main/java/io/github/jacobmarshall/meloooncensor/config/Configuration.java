@@ -5,6 +5,7 @@ import io.github.jacobmarshall.meloooncensor.filter.ClassicFilter;
 import io.github.jacobmarshall.meloooncensor.filter.Filter;
 import io.github.jacobmarshall.meloooncensor.filter.StrictFilter;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 
@@ -108,6 +109,10 @@ public class Configuration {
 
     public boolean allowBypass () {
         return bypass;
+    }
+
+    public boolean allowBypass (Player player) {
+        return allowBypass() && player.hasPermission("meloooncensor.bypass");
     }
 
     public void setType (String type) {
