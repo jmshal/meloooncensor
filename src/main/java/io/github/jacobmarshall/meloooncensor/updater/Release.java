@@ -7,6 +7,7 @@ public class Release {
 
     String version;
     String description;
+    String summary;
     String downloadUrl;
     String releaseUrl;
     boolean isPreRelease;
@@ -19,6 +20,14 @@ public class Release {
 
     public String getDescription () {
         return description;
+    }
+
+    public String getSummary () {
+        return summary;
+    }
+
+    public boolean hasSummary () {
+        return summary != null && summary.length() > 0;
     }
 
     public String getDownloadUrl () {
@@ -37,6 +46,8 @@ public class Release {
         Release release = new Release();
         release.version = json.getString("tag_name");
         release.description = json.getString("body");
+        String[] descriptionList = release.description.split("\\n");
+        release.summary = descriptionList[descriptionList.length - 1]; // Use the last line of the description as the summary
         {
             JSONArray assets = json.getJSONArray("assets");
             JSONObject jar = assets.getJSONObject(0);

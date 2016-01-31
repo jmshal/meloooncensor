@@ -7,7 +7,6 @@ import io.github.jacobmarshall.meloooncensor.command.CensorCommandExecutor;
 import io.github.jacobmarshall.meloooncensor.listener.PlayerJoinEventListener;
 import io.github.jacobmarshall.meloooncensor.updater.CheckForUpdatesTask;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.mcstats.Metrics;
 
 import java.io.IOException;
@@ -42,7 +41,7 @@ public class MelooonCensor extends JavaPlugin {
         );
 
         getServer().getPluginManager().registerEvents(
-            new PlayerJoinEventListener(updater), this
+            new PlayerJoinEventListener(this, updater), this
         );
 
         getCommand("censor").setExecutor(

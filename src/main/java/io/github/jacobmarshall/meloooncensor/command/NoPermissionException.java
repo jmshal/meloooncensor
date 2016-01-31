@@ -1,4 +1,3 @@
 package io.github.jacobmarshall.meloooncensor.command;
 
-public class NoPermissionException extends Exception {
-}
+public class NoPermissionException extends Exception {}

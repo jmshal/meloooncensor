@@ -4,7 +4,6 @@ import io.github.jacobmarshall.meloooncensor.config.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public abstract class Filter {
 

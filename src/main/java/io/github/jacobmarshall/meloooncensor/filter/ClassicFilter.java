@@ -1,6 +1,5 @@
 package io.github.jacobmarshall.meloooncensor.filter;
 
-import io.github.jacobmarshall.meloooncensor.MelooonCensor;
 import io.github.jacobmarshall.meloooncensor.config.Configuration;
 
 import java.util.regex.Pattern;
