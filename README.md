@@ -1,3 +1,5 @@
+<img style="float: right" src="icon.png"><img src="logo.png">
+
 # MelooonCensor
 
 A simple censor plugin for Bukkit/CraftBukkit.
