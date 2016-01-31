@@ -37,6 +37,12 @@ public class CensorCommandExecutor implements CommandExecutor {
 
         try {
             switch (cmd) {
+                case "reload":
+                    assertPermission(sender, "meloooncensor.reload");
+
+                    config.reload();
+                    sender.sendMessage(ChatColor.GREEN + "Configuration reloaded.");
+                    break;
                 case "enable":
                 case "e":
                     assertPermission(sender, "meloooncensor.enable");
