@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.jacobmarshall.meloooncensor</groupId>
-  <artifactId>MelooonCensor</artifactId>
+  <artifactId>meloooncensor</artifactId>
   <version>3.0.0-SNAPSHOT</version>
   <build>
     <plugins>
@@ -34,12 +34,22 @@
           <artifactSet>
             <includes>
               <include>org.mcstats.*:*</include>
+              <include>com.bugsnag:*</include>
+              <include>org.json:*</include>
             </includes>
           </artifactSet>
           <relocations>
             <relocation>
               <pattern>org.mcstats</pattern>
-              <shadedPattern>io.github.jacobmarshall.meloooncensor.metrics</shadedPattern>
+              <shadedPattern>io.github.jacobmarshall.meloooncensor.lib.org.mcstats</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>com.bugsnag</pattern>
+              <shadedPattern>io.github.jacobmarshall.meloooncensor.lib.com.bugsnag</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>org.json</pattern>
+              <shadedPattern>io.github.jacobmarshall.meloooncensor.lib.org.json</shadedPattern>
             </relocation>
           </relocations>
         </configuration>
