@@ -41,7 +41,7 @@ Reloads any modifications made to the config.yml file.
 **Permission:** *meloooncensor.reload*
 
 ## Permissions
-- meloooncensor.bypass
+- meloooncensor.bypass  
 Bypasses the censor filter when assigned to a user/group.
 
 
