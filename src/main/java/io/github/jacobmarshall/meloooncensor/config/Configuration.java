@@ -11,6 +11,7 @@ import java.util.List;
 public class Configuration {
 
     public static final String ENABLE = "censor.enable";
+    public static final String BYPASS = "censor.bypass";
     public static final String TYPE = "censor.type";
     public static final String CHAR = "censor.char";
     public static final String CENSOR = "censor.list";
@@ -18,6 +19,7 @@ public class Configuration {
     public static final String MESSAGE = "censor.message";
 
     public static final boolean DEFAULT_ENABLE = true;
+    public static final boolean DEFAULT_BYPASS = false;
     public static final String DEFAULT_TYPE = "classic";
     public static final char DEFAULT_CHAR = '*';
     public static final String[] DEFAULT_CENSOR = new String[] {"fuck", "shit", "piss", "bitch"};
@@ -27,6 +29,7 @@ public class Configuration {
     MelooonCensor plugin;
     Filter filter;
     boolean enabled;
+    boolean bypass;
     String type;
     char _char;
     List<String> censor;
@@ -45,6 +48,7 @@ public class Configuration {
     private void addDefaults () {
         getConfig().options().header("MelooonCensor Configuration");
         getConfig().addDefault(ENABLE, DEFAULT_ENABLE);
+        getConfig().addDefault(BYPASS, DEFAULT_BYPASS);
         getConfig().addDefault(TYPE, DEFAULT_TYPE);
         getConfig().addDefault(CHAR, DEFAULT_CHAR);
         getConfig().addDefault(CENSOR, DEFAULT_CENSOR);
@@ -57,6 +61,7 @@ public class Configuration {
     private void loadConfig () {
         plugin.reloadConfig();
         setEnabled(getConfig().getBoolean(ENABLE));
+        setBypass(getConfig().getBoolean(BYPASS));
         setType(getConfig().getString(TYPE));
         setCharString(getConfig().getString(CHAR));
         setCensor(getConfig().getStringList(CENSOR));
@@ -71,6 +76,7 @@ public class Configuration {
 
     public void save () {
         getConfig().set(ENABLE, enabled);
+        getConfig().set(BYPASS, bypass);
         getConfig().set(TYPE, type);
         getConfig().set(CHAR, _char);
         getConfig().set(CENSOR, censor);
@@ -94,6 +100,14 @@ public class Configuration {
 
     public boolean isEnabled () {
         return enabled;
+    }
+
+    public void setBypass (boolean bypass) {
+        this.bypass = bypass;
+    }
+
+    public boolean allowBypass () {
+        return bypass;
     }
 
     public void setType (String type) {

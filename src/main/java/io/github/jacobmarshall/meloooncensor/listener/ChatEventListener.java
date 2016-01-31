@@ -20,7 +20,7 @@ public class ChatEventListener implements Listener {
         if (config.isEnabled()) {
             Player player = event.getPlayer();
             String message = event.getMessage();
-            boolean shouldFilter = ! player.hasPermission("meloooncensor.bypass"); // Users with this permission don't need to go through the filter
+            boolean shouldFilter = ! (config.allowBypass() && player.hasPermission("meloooncensor.bypass")); // Users with this permission don't need to go through the filter
 
             if (shouldFilter && config.getFilter().violatesPolicy(message)) {
                 String censoredMessage = config.getFilter().censorMessage(message);
