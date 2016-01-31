@@ -84,6 +84,10 @@ public class Configuration {
         loadConfig();
     }
 
+    public void reload () {
+        loadConfig();
+    }
+
     public void setEnabled (boolean enabled) {
         this.enabled = enabled;
     }
