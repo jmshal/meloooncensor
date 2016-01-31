@@ -6,7 +6,7 @@
 
     <groupId>io.github.jacobmarshall.meloooncensor</groupId>
     <artifactId>meloooncensor</artifactId>
-    <version>3.0.2</version>
+    <version>3.0.3</version>
 
     <build>
         <plugins>
