@@ -17,19 +17,21 @@ public class ChatEventListener implements Listener {
 
     @EventHandler
     public void onPlayerChat (AsyncPlayerChatEvent event) {
-        Player player = event.getPlayer();
-        String message = event.getMessage();
+        if (config.isEnabled()) {
+            Player player = event.getPlayer();
+            String message = event.getMessage();
 
-        if (config.getFilter().violatesPolicy(message)) {
-            String censoredMessage = config.getFilter().censorMessage(message);
+            if (config.getFilter().violatesPolicy(message)) {
+                String censoredMessage = config.getFilter().censorMessage(message);
 
-            if (censoredMessage == null) {
-                event.setCancelled(true);
-            } else {
-                event.setMessage(censoredMessage);
+                if (censoredMessage == null) {
+                    event.setCancelled(true);
+                } else {
+                    event.setMessage(censoredMessage);
+                }
+
+                player.sendMessage(ChatColor.GRAY + config.getMessage());
             }
-
-            player.sendMessage(ChatColor.GRAY + config.getMessage());
         }
     }
 

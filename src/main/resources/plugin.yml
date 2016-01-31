@@ -6,4 +6,4 @@ commands:
   censor:
     description: Add/remove censored/ignored words from chat.
     aliases: [mcensor, meloooncensor]
-    usage: "/censor add [censor|ignore] (word),remove [censor|ignore] (word), list [censor|ignore]"
+    usage: "/censor add (censor|ignore) (word),remove (censor|ignore) (word), list (censor|ignore), (enable|disable)"
