@@ -19,6 +19,7 @@ public class MelooonCensor extends JavaPlugin {
 
     protected void startBugsnag () {
         bugsnag = new Client("b5347687fe92ee7494d20cdf5a725fad");
+        bugsnag.setAppVersion(getDescription().getVersion());
         bugsnag.setProjectPackages("io.github.jacobmarshall.meloooncensor");
     }
 
