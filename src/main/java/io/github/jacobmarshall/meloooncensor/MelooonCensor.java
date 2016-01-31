@@ -5,6 +5,7 @@ import io.github.jacobmarshall.meloooncensor.config.Configuration;
 import io.github.jacobmarshall.meloooncensor.listener.ChatEventListener;
 import io.github.jacobmarshall.meloooncensor.command.CensorCommandExecutor;
 import io.github.jacobmarshall.meloooncensor.listener.PlayerJoinEventListener;
+import io.github.jacobmarshall.meloooncensor.listener.UnhandledExceptionListener;
 import io.github.jacobmarshall.meloooncensor.updater.CheckForUpdatesTask;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
@@ -21,6 +22,7 @@ public class MelooonCensor extends JavaPlugin {
         bugsnag = new Client("b5347687fe92ee7494d20cdf5a725fad");
         bugsnag.setAppVersion(getDescription().getVersion());
         bugsnag.setProjectPackages("io.github.jacobmarshall.meloooncensor");
+        bugsnag.addBeforeNotify(new UnhandledExceptionListener());
     }
 
     protected void startMetrics () {
