@@ -25,7 +25,7 @@ Adds a word to either the censor or ignore list.
 **Permission:** *meloooncensor.add.censor* and *meloooncensor.add.ignore*
 
 - /censor remove (censor|ignore) (word)  
-Removes a word from either the censor or ignore list.
+Removes a word from either the censor or ignore list.  
 **Permission:** *meloooncensor.remove.censor* and *meloooncensor.remove.ignore*
 
 - /censor list [censor|ignore]  
