@@ -3,14 +3,12 @@ package io.github.jacobmarshall.meloooncensor.updater;
 import com.bugsnag.Client;
 import io.github.jacobmarshall.meloooncensor.MelooonCensor;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Iterator;
 
 public class CheckForUpdatesTask implements Runnable {
 
@@ -37,7 +35,8 @@ public class CheckForUpdatesTask implements Runnable {
         Release latestRelease = null;
 
         try {
-            String releasesText = sendRequest("/repos/" + REPO + "/releases");
+            String releasesText = sendRequest("repos/" + REPO + "/releases");
+
             if (releasesText != null) {
                 JSONArray releases = new JSONArray(releasesText);
 
@@ -68,6 +67,7 @@ public class CheckForUpdatesTask implements Runnable {
 
     private String sendRequest (String api) {
         HttpURLConnection connection = null;
+        String response = null;
 
         try {
             URL url = new URL(API_URL + "/" + api);
@@ -84,13 +84,13 @@ public class CheckForUpdatesTask implements Runnable {
                     reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
                     String line;
-                    StringBuilder response = new StringBuilder();
+                    StringBuilder builder = new StringBuilder();
 
                     while ((line = reader.readLine()) != null) {
-                        response.append(line);
+                        builder.append(line);
                     }
 
-                    return response.toString();
+                    response = builder.toString();
                 } catch (IOException err) {
                     bugsnag.notify(err);
                 } finally {
@@ -106,7 +106,7 @@ public class CheckForUpdatesTask implements Runnable {
                 connection.disconnect();
             }
         }
-        return null;
+        return response;
     }
 
     public boolean isUpdateAvailable () {

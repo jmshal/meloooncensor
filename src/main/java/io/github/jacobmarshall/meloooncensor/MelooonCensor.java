@@ -38,15 +38,15 @@ public class MelooonCensor extends JavaPlugin {
         );
 
         getServer().getPluginManager().registerEvents(
-            new ChatEventListener(this.config), this
+            new ChatEventListener(config), this
         );
 
         getServer().getPluginManager().registerEvents(
-            new PlayerJoinEventListener(this.updater), this
+            new PlayerJoinEventListener(updater), this
         );
 
         getCommand("censor").setExecutor(
-            new CensorCommandExecutor(this.config)
+            new CensorCommandExecutor(config)
         );
     }
 
