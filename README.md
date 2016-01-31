@@ -1,5 +1,4 @@
-<img style="float: right" src="icon.png">
-<img src="logo.png">
+![Logo](./logo.png)
 
 # MelooonCensor
 
