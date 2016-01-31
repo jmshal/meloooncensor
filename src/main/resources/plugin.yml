@@ -1,6 +1,6 @@
 name: MelooonCensor
 main: io.github.jacobmarshall.meloooncensor.MelooonCensor
-version: 3.0.4
+version: 3.0.5
 author: Jacob Marshall <jacob@manage.net.nz>
 commands:
   censor:
