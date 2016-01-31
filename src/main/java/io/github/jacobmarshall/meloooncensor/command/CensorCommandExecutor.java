@@ -37,6 +37,30 @@ public class CensorCommandExecutor implements CommandExecutor {
 
         try {
             switch (cmd) {
+                case "enable":
+                case "e":
+                    assertPermission(sender, "meloooncensor.enable");
+
+                    if ( ! config.isEnabled()) {
+                        config.setEnabled(true);
+                        config.save();
+                        sender.sendMessage(ChatColor.GREEN + "Enabled censor filter.");
+                    } else {
+                        sender.sendMessage(ChatColor.YELLOW + "Censor filter is already enabled.");
+                    }
+                    break;
+                case "disable":
+                case "d":
+                    assertPermission(sender, "meloooncensor.disable");
+
+                    if (config.isEnabled()) {
+                        config.setEnabled(false);
+                        config.save();
+                        sender.sendMessage(ChatColor.GREEN + "Disabled censor filter.");
+                    } else {
+                        sender.sendMessage(ChatColor.YELLOW + "Censor filter is already disabled.");
+                    }
+                    break;
                 case "add":
                 case "a":
                     switch (type) {
@@ -71,8 +95,6 @@ public class CensorCommandExecutor implements CommandExecutor {
                     break;
                 case "remove":
                 case "r":
-                case "delete":
-                case "d":
                     switch (type) {
                         case "censor":
                         case "censored":

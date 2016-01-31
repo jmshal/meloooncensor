@@ -10,12 +10,14 @@ import java.util.List;
 
 public class Configuration {
 
+    public static final String ENABLE = "censor.enable";
     public static final String TYPE = "censor.type";
     public static final String CHAR = "censor.char";
     public static final String CENSOR = "censor.list";
     public static final String IGNORE = "censor.ignore";
     public static final String MESSAGE = "censor.message";
 
+    public static final boolean DEFAULT_ENABLE = true;
     public static final String DEFAULT_TYPE = "classic";
     public static final char DEFAULT_CHAR = '*';
     public static final String[] DEFAULT_CENSOR = new String[] {"fuck", "shit", "piss", "bitch"};
@@ -24,6 +26,7 @@ public class Configuration {
 
     MelooonCensor plugin;
     Filter filter;
+    boolean enabled;
     String type;
     char _char;
     List<String> censor;
@@ -41,6 +44,7 @@ public class Configuration {
 
     private void addDefaults () {
         getConfig().options().header("MelooonCensor Configuration");
+        getConfig().addDefault(ENABLE, DEFAULT_ENABLE);
         getConfig().addDefault(TYPE, DEFAULT_TYPE);
         getConfig().addDefault(CHAR, DEFAULT_CHAR);
         getConfig().addDefault(CENSOR, DEFAULT_CENSOR);
@@ -52,6 +56,7 @@ public class Configuration {
 
     private void loadConfig () {
         plugin.reloadConfig();
+        setEnabled(getConfig().getBoolean(ENABLE));
         setType(getConfig().getString(TYPE));
         setCharString(getConfig().getString(CHAR));
         setCensor(getConfig().getStringList(CENSOR));
@@ -65,6 +70,7 @@ public class Configuration {
     }
 
     public void save () {
+        getConfig().set(ENABLE, enabled);
         getConfig().set(TYPE, type);
         getConfig().set(CHAR, _char);
         getConfig().set(CENSOR, censor);
@@ -76,6 +82,14 @@ public class Configuration {
     public void load () {
         addDefaults();
         loadConfig();
+    }
+
+    public void setEnabled (boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean isEnabled () {
+        return enabled;
     }
 
     public void setType (String type) {
