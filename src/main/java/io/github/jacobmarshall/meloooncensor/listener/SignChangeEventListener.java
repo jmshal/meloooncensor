@@ -1,6 +1,7 @@
 package io.github.jacobmarshall.meloooncensor.listener;
 
 import io.github.jacobmarshall.meloooncensor.config.Configuration;
+import io.github.jacobmarshall.meloooncensor.log.ViolationLogger;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,9 +10,11 @@ import org.bukkit.event.block.SignChangeEvent;
 public class SignChangeEventListener implements Listener {
 
     Configuration config;
+    ViolationLogger logger;
 
-    public SignChangeEventListener (Configuration config) {
+    public SignChangeEventListener (Configuration config, ViolationLogger logger) {
         this.config = config;
+        this.logger = logger;
     }
 
     @EventHandler
@@ -26,8 +29,13 @@ public class SignChangeEventListener implements Listener {
                     String line = lines[index];
 
                     if (config.getFilter().violatesPolicy(line)) {
-                        line = config.getFilter().censorMessage(line);
-                        event.setLine(index, line);
+                        String censoredLine = config.getFilter().censorMessage(line);
+                        event.setLine(index, censoredLine);
+
+                        if (logger != null) {
+                            // The check above is in case the log file failed to create
+                            logger.log(player, line, event.getBlock().getLocation().toString());
+                        }
                     }
                 }
             }

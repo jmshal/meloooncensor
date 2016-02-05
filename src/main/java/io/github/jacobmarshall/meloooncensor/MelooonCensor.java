@@ -7,6 +7,7 @@ import io.github.jacobmarshall.meloooncensor.command.CensorCommandExecutor;
 import io.github.jacobmarshall.meloooncensor.listener.PlayerJoinEventListener;
 import io.github.jacobmarshall.meloooncensor.listener.SignChangeEventListener;
 import io.github.jacobmarshall.meloooncensor.listener.UnhandledExceptionListener;
+import io.github.jacobmarshall.meloooncensor.log.ViolationLogger;
 import io.github.jacobmarshall.meloooncensor.updater.CheckForUpdatesTask;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
@@ -18,6 +19,8 @@ public class MelooonCensor extends JavaPlugin {
     private Configuration config;
     private CheckForUpdatesTask updater;
     private Client bugsnag;
+    private ViolationLogger chatLogger;
+    private ViolationLogger signLogger;
 
     protected void startBugsnag () {
         bugsnag = new Client("b5347687fe92ee7494d20cdf5a725fad");
@@ -35,17 +38,26 @@ public class MelooonCensor extends JavaPlugin {
         }
     }
 
+    protected void createViolationLoggers () {
+        try {
+            chatLogger = new ViolationLogger(getDataFolder(), "chat");
+            signLogger = new ViolationLogger(getDataFolder(), "signs");
+        } catch (IOException err) {
+            bugsnag.notify(err);
+        }
+    }
+
     protected void registerEvents () {
         getServer().getScheduler().runTaskTimerAsynchronously(
             this, updater = new CheckForUpdatesTask(this, bugsnag), 0L, 36000L
         );
 
         getServer().getPluginManager().registerEvents(
-            new ChatEventListener(config), this
+            new ChatEventListener(config, chatLogger), this
         );
 
         getServer().getPluginManager().registerEvents(
-            new SignChangeEventListener(config), this
+            new SignChangeEventListener(config, signLogger), this
         );
 
         getServer().getPluginManager().registerEvents(
@@ -64,8 +76,9 @@ public class MelooonCensor extends JavaPlugin {
     @Override
     public void onEnable () {
         startBugsnag();
-        setupConfig();
         startMetrics();
+        setupConfig();
+        createViolationLoggers();
         registerEvents();
     }
 
