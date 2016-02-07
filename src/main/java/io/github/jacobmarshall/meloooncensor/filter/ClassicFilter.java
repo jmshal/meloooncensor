@@ -6,18 +6,30 @@ import java.util.regex.Pattern;
 
 public class ClassicFilter extends Filter {
 
+    private static final Pattern WORD_SPLIT = Pattern.compile("\\s");
+
     public ClassicFilter (Configuration config) {
         super(config);
     }
 
     @Override
     public boolean violatesPolicy (String message) {
-        return ! message.equals(this.censorMessage(message));
+        String[] words = WORD_SPLIT.split(message);
+
+        for (int index = 0; index < words.length; index++) {
+            String word = words[index];
+
+            if (isCensoredWord(word) && ! isIgnoredWord(word)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override
     public String censorMessage (String message) {
-        String[] words = Pattern.compile("\\s").split(message);
+        String[] words = WORD_SPLIT.split(message);
         StringBuilder censoredMessage = new StringBuilder();
 
         for (int index = 0; index < words.length; index++) {

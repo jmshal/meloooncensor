@@ -9,11 +9,6 @@ public class StrictFilter extends ClassicFilter {
     }
 
     @Override
-    public boolean violatesPolicy (String message) {
-        return ! message.equals(super.censorMessage(message));
-    }
-
-    @Override
     public String censorMessage (String message) {
         return null;
     }
