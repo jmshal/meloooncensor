@@ -1,5 +1,6 @@
 package io.github.jacobmarshall.meloooncensor.config;
 
+import com.bugsnag.Client;
 import io.github.jacobmarshall.meloooncensor.MelooonCensor;
 import io.github.jacobmarshall.meloooncensor.filter.ClassicFilter;
 import io.github.jacobmarshall.meloooncensor.filter.Filter;
@@ -28,6 +29,8 @@ public class Configuration {
     public static final String DEFAULT_MESSAGE = "Please don't use that kind of language on this server.";
 
     MelooonCensor plugin;
+    Client bugsnag;
+
     Filter filter;
     boolean enabled;
     boolean bypass;
@@ -37,8 +40,9 @@ public class Configuration {
     List<String> ignore;
     String message;
 
-    public Configuration (MelooonCensor plugin) {
+    public Configuration (MelooonCensor plugin, Client bugsnag) {
         this.plugin = plugin;
+        this.bugsnag = bugsnag;
         load();
     }
 
@@ -135,10 +139,29 @@ public class Configuration {
                 // that violate the policy from sending out publicly.
                 filter = new StrictFilter(this);
                 break;
-            default:
+            case "classic":
                 // ClassicFilter takes any words that contain/are censored words, which aren't ignored words,
                 // and censors the whole word.
                 filter = new ClassicFilter(this);
+                break;
+            default:
+                try {
+                    Class<?> unknownClass = Class.forName(getType());
+
+                    if (unknownClass.isAssignableFrom(Filter.class)) {
+                        // The filter implementation should always accept a single argument in it's constructor
+                        filter = (Filter) unknownClass.getDeclaredConstructor(Configuration.class).newInstance(this);
+                    }
+                } catch (Exception e) {
+                    // Not that there is anything we can do at this point, as this error is only ever caused by
+                    // human error (on the server admin's side), but it may help notifying 3rd parties that their
+                    // filters are incorrectly being utilised (in the case of a recognisable class name).
+                    bugsnag.notify(e);
+
+                    // The best thing to do here is activate the strict filter, due to the fact it completely
+                    // prevents censored messages from being visible to players (a safe fallback)
+                    filter = new StrictFilter(this);
+                }
                 break;
         }
     }
