@@ -70,7 +70,7 @@ public class MelooonCensor extends JavaPlugin {
     }
 
     protected void setupConfig () {
-        config = new Configuration(this);
+        config = new Configuration(this, bugsnag);
     }
 
     @Override
