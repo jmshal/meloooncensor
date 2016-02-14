@@ -13,6 +13,7 @@ Your ideas and issues are welcome in the discussion thread, or on GitHub issues 
 ## Features
 - Fully customisable censor list
 - Censors text on signs **[NEW]**
+- 3rd party filter support (currently in beta)
 - Multiple chat filters (**classic** - which censors words which are on your censor list, and **strict** - which prevents messages from sending if they contain any words which are on the censor list)
 - An ignore list (for any words which contain bad words, but aren't bad themselves)
 - Automatic update notifications (the plugin ties into GitHub, and notifies you when there is a new version available)
