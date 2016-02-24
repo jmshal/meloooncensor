@@ -28,7 +28,7 @@ public class Configuration {
     public static final char DEFAULT_CHAR = '*';
     public static final String[] DEFAULT_CENSOR = new String[] {"fuck", "shit", "piss", "bitch"};
     public static final String[] DEFAULT_IGNORE = new String[] {"shitsu"};
-    public static final String DEFAULT_MESSAGE = "Please don't use that kind of language on this server.";
+    public static final String DEFAULT_MESSAGE = "Please don't use that kind of language on this server, {player}.";
 
     MelooonCensor plugin;
     Client bugsnag;
