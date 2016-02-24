@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.jacobmarshall.meloooncensor</groupId>
   <artifactId>meloooncensor</artifactId>
-  <version>3.0.8-beta.2</version>
+  <version>3.0.8-beta.3</version>
   <build>
     <plugins>
       <plugin>
