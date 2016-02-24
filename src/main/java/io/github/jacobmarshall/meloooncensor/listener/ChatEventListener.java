@@ -34,7 +34,7 @@ public class ChatEventListener implements Listener {
                         event.setMessage(censoredMessage);
                     }
 
-                    player.sendMessage(ChatColor.GRAY + config.getMessage());
+                    player.sendMessage(ChatColor.GRAY + config.getFormattedMessage());
 
                     if (logger != null) {
                         // The check above is in case the log file failed to create
