@@ -8,6 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import java.util.HashMap;
+
 public class ChatEventListener implements Listener {
 
     Configuration config;
@@ -34,7 +36,10 @@ public class ChatEventListener implements Listener {
                         event.setMessage(censoredMessage);
                     }
 
-                    player.sendMessage(ChatColor.GRAY + config.getFormattedMessage());
+                    HashMap<String, String> values = new HashMap<>();
+                    values.put("player", player.getName());
+
+                    player.sendMessage(ChatColor.GRAY + config.getFormattedMessage(values));
 
                     if (logger != null) {
                         // The check above is in case the log file failed to create

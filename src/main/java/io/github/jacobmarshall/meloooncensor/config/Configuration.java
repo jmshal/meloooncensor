@@ -9,6 +9,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Configuration {
@@ -27,7 +28,7 @@ public class Configuration {
     public static final char DEFAULT_CHAR = '*';
     public static final String[] DEFAULT_CENSOR = new String[] {"fuck", "shit", "piss", "bitch"};
     public static final String[] DEFAULT_IGNORE = new String[] {"shitsu"};
-    public static final String DEFAULT_MESSAGE = "Please don't use that kind of language on this server.";
+    public static final String DEFAULT_MESSAGE = "Please don't use that kind of language on this server, {player}.";
 
     MelooonCensor plugin;
     Client bugsnag;
@@ -254,7 +255,21 @@ public class Configuration {
     }
 
     public String getFormattedMessage () {
-        return ChatColor.translateAlternateColorCodes('&', message);
+        return getFormattedMessage(null);
+    }
+
+    public String getFormattedMessage (HashMap<String, String> values) {
+        // Translate the alt color codes first, in case of user input
+        String message = ChatColor.translateAlternateColorCodes('&', getMessage());
+
+        if (values != null && values.size() > 0) {
+            for (String key : values.keySet()) {
+                // {player} => jacoooooooooooob
+                message = message.replaceAll("\\{" + key + "\\}", values.get(key));
+            }
+        }
+
+        return message;
     }
 
 }
