@@ -29,7 +29,7 @@ public class CheckForUpdatesTask implements Runnable {
         this.plugin = plugin;
         this.bugsnag = bugsnag;
         this.version = Version.valueOf(plugin.getDescription().getVersion());
-        this.isRunningPreRelease = this.version.getPreReleaseVersion() != null;
+        this.isRunningPreRelease = ! this.version.getPreReleaseVersion().isEmpty();
     }
 
     @Override
