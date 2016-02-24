@@ -5,6 +5,7 @@ import io.github.jacobmarshall.meloooncensor.MelooonCensor;
 import io.github.jacobmarshall.meloooncensor.filter.ClassicFilter;
 import io.github.jacobmarshall.meloooncensor.filter.Filter;
 import io.github.jacobmarshall.meloooncensor.filter.StrictFilter;
+import io.github.jacobmarshall.meloooncensor.lang.Translation;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -16,6 +17,7 @@ public class Configuration {
 
     public static final String ENABLE = "censor.enable";
     public static final String BYPASS = "censor.bypass";
+    public static final String LANGUAGE = "censor.lang";
     public static final String TYPE = "censor.type";
     public static final String CHAR = "censor.char";
     public static final String CENSOR = "censor.list";
@@ -24,6 +26,7 @@ public class Configuration {
 
     public static final boolean DEFAULT_ENABLE = true;
     public static final boolean DEFAULT_BYPASS = false;
+    public static final String DEFAULT_LANGUAGE = "en";
     public static final String DEFAULT_TYPE = "classic";
     public static final char DEFAULT_CHAR = '*';
     public static final String[] DEFAULT_CENSOR = new String[] {"fuck", "shit", "piss", "bitch"};
@@ -36,6 +39,8 @@ public class Configuration {
     Filter filter;
     boolean enabled;
     boolean bypass;
+    String language;
+    Translation translation;
     String type;
     char _char;
     List<String> censor;
@@ -56,6 +61,7 @@ public class Configuration {
         getConfig().options().header("MelooonCensor Configuration");
         getConfig().addDefault(ENABLE, DEFAULT_ENABLE);
         getConfig().addDefault(BYPASS, DEFAULT_BYPASS);
+        getConfig().addDefault(LANGUAGE, DEFAULT_LANGUAGE);
         getConfig().addDefault(TYPE, DEFAULT_TYPE);
         getConfig().addDefault(CHAR, DEFAULT_CHAR);
         getConfig().addDefault(CENSOR, DEFAULT_CENSOR);
@@ -69,12 +75,12 @@ public class Configuration {
         plugin.reloadConfig();
         setEnabled(getConfig().getBoolean(ENABLE));
         setBypass(getConfig().getBoolean(BYPASS));
+        setLanguage(getConfig().getString(LANGUAGE));
         setType(getConfig().getString(TYPE));
         setCharString(getConfig().getString(CHAR));
         setCensor(getConfig().getStringList(CENSOR));
         setIgnore(getConfig().getStringList(IGNORE));
         setMessage(getConfig().getString(MESSAGE));
-        updateFilter();
     }
 
     private void saveConfig () {
@@ -84,6 +90,7 @@ public class Configuration {
     public void save () {
         getConfig().set(ENABLE, enabled);
         getConfig().set(BYPASS, bypass);
+        getConfig().set(LANGUAGE, language);
         getConfig().set(TYPE, type);
         getConfig().set(CHAR, _char);
         getConfig().set(CENSOR, censor);
@@ -119,6 +126,23 @@ public class Configuration {
 
     public boolean allowBypass (Player player) {
         return allowBypass() && player.hasPermission("meloooncensor.bypass");
+    }
+
+    public String getLanguage () {
+        return language;
+    }
+
+    public void setLanguage (String language) {
+        this.language = language;
+        updateTranslation();
+    }
+
+    public void updateTranslation () {
+        translation = new Translation(language);
+    }
+
+    public Translation getTranslation () {
+        return translation;
     }
 
     public void setType (String type) {

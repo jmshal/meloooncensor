@@ -41,7 +41,7 @@ public class CensorCommandExecutor implements CommandExecutor {
                     assertPermission(sender, "meloooncensor.reload");
 
                     config.reload();
-                    sender.sendMessage(ChatColor.GREEN + "Configuration reloaded.");
+                    sender.sendMessage(ChatColor.GREEN + config.getTranslation().getText("censor.config.reloaded"));
                     break;
                 case "enable":
                 case "e":
@@ -50,9 +50,9 @@ public class CensorCommandExecutor implements CommandExecutor {
                     if ( ! config.isEnabled()) {
                         config.setEnabled(true);
                         config.save();
-                        sender.sendMessage(ChatColor.GREEN + "Enabled censor filter.");
+                        sender.sendMessage(ChatColor.GREEN + config.getTranslation().getText("censor.enabled"));
                     } else {
-                        sender.sendMessage(ChatColor.YELLOW + "Censor filter is already enabled.");
+                        sender.sendMessage(ChatColor.YELLOW + config.getTranslation().getText("censor.already-enabled"));
                     }
                     break;
                 case "disable":
@@ -62,9 +62,9 @@ public class CensorCommandExecutor implements CommandExecutor {
                     if (config.isEnabled()) {
                         config.setEnabled(false);
                         config.save();
-                        sender.sendMessage(ChatColor.GREEN + "Disabled censor filter.");
+                        sender.sendMessage(ChatColor.GREEN + config.getTranslation().getText("censor.disabled"));
                     } else {
-                        sender.sendMessage(ChatColor.YELLOW + "Censor filter is already disabled.");
+                        sender.sendMessage(ChatColor.YELLOW + config.getTranslation().getText("censor.already-disabled"));
                     }
                     break;
                 case "add":
@@ -77,9 +77,9 @@ public class CensorCommandExecutor implements CommandExecutor {
 
                             if (config.addCensor(word)) {
                                 config.save();
-                                sender.sendMessage(ChatColor.GREEN + "Added to censored words.");
+                                sender.sendMessage(ChatColor.GREEN + config.getTranslation().getText("censor.word-added"));
                             } else {
-                                sender.sendMessage(ChatColor.YELLOW + "Already a censored word.");
+                                sender.sendMessage(ChatColor.YELLOW + config.getTranslation().getText("censor.word-already-added"));
                             }
                             break;
                         case "ignore":
@@ -89,13 +89,13 @@ public class CensorCommandExecutor implements CommandExecutor {
 
                             if (config.addIgnore(word)) {
                                 config.save();
-                                sender.sendMessage(ChatColor.GREEN + "Added to ignored words.");
+                                sender.sendMessage(ChatColor.GREEN + config.getTranslation().getText("censor.ignore-word-added"));
                             } else {
-                                sender.sendMessage(ChatColor.YELLOW + "Already an ignored word.");
+                                sender.sendMessage(ChatColor.YELLOW + config.getTranslation().getText("censor.ignore-word-already-added"));
                             }
                             break;
                         default:
-                            sender.sendMessage(ChatColor.RED + "Provide a list to add a word to (censor/ignore).");
+                            sender.sendMessage(ChatColor.RED + config.getTranslation().getText("censor.command.add.help"));
                             break;
                     }
                     break;
@@ -109,9 +109,9 @@ public class CensorCommandExecutor implements CommandExecutor {
 
                             if (config.removeCensor(word)) {
                                 config.save();
-                                sender.sendMessage(ChatColor.GREEN + "Removed from censored words.");
+                                sender.sendMessage(ChatColor.GREEN + config.getTranslation().getText("censor.word-removed"));
                             } else {
-                                sender.sendMessage(ChatColor.YELLOW + "Not a censored word.");
+                                sender.sendMessage(ChatColor.YELLOW + config.getTranslation().getText("censor.word-not-censored"));
                             }
                             break;
                         case "ignore":
@@ -121,13 +121,13 @@ public class CensorCommandExecutor implements CommandExecutor {
 
                             if (config.removeIgnore(word)) {
                                 config.save();
-                                sender.sendMessage(ChatColor.GREEN + "Removed from ignored words.");
+                                sender.sendMessage(ChatColor.GREEN + config.getTranslation().getText("censor.ignore-word-removed"));
                             } else {
-                                sender.sendMessage(ChatColor.YELLOW + "Not an ignored word.");
+                                sender.sendMessage(ChatColor.YELLOW + config.getTranslation().getText("censor.ignore-word-not-ignored"));
                             }
                             break;
                         default:
-                            sender.sendMessage(ChatColor.RED + "Provide a list to remove a word from (censor/ignore).");
+                            sender.sendMessage(ChatColor.RED + config.getTranslation().getText("censor.command.remove.help"));
                             break;
                     }
                     break;
@@ -163,7 +163,7 @@ public class CensorCommandExecutor implements CommandExecutor {
                     return false;
             }
         } catch (NoPermissionException err) {
-            sender.sendMessage(ChatColor.RED + "You do not have permission to perform this action.");
+            sender.sendMessage(ChatColor.RED + config.getTranslation().getText("censor.command.no-permission"));
         }
 
         return true;
