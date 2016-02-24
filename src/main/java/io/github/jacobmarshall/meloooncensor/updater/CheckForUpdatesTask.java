@@ -1,6 +1,7 @@
 package io.github.jacobmarshall.meloooncensor.updater;
 
 import com.bugsnag.Client;
+import com.github.zafarkhaja.semver.Version;
 import io.github.jacobmarshall.meloooncensor.MelooonCensor;
 import org.json.JSONArray;
 
@@ -22,11 +23,13 @@ public class CheckForUpdatesTask implements Runnable {
 
     private boolean isOutdated;
     private Release latestRelease;
+    private boolean isRunningPreRelease;
 
     public CheckForUpdatesTask (MelooonCensor plugin, Client bugsnag) {
         this.plugin = plugin;
         this.bugsnag = bugsnag;
-        this.version = new Version(plugin.getDescription().getVersion());
+        this.version = Version.valueOf(plugin.getDescription().getVersion());
+        this.isRunningPreRelease = this.version.getPreReleaseVersion() != null;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class CheckForUpdatesTask implements Runnable {
                         Release release = Release.from(releases.getJSONObject(index));
 
                         if ( ! release.isPreRelease()) {
-                            Version releaseVersion = new Version(release.getVersion());
+                            Version releaseVersion = Version.valueOf(release.getVersion());
 
                             if (releaseVersion.compareTo(version) > 0) {
                                 isOutdated = true;
@@ -115,6 +118,10 @@ public class CheckForUpdatesTask implements Runnable {
 
     public Release getLatestRelease () {
         return latestRelease;
+    }
+
+    public boolean isRunningPreRelease () {
+        return isRunningPreRelease;
     }
 
 }

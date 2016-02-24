@@ -36,6 +36,7 @@
               <include>org.mcstats.*:*</include>
               <include>com.bugsnag:*</include>
               <include>org.json:*</include>
+              <include>com.github.zafarkhaja:*</include>
             </includes>
           </artifactSet>
           <relocations>
@@ -50,6 +51,10 @@
             <relocation>
               <pattern>org.json</pattern>
               <shadedPattern>io.github.jacobmarshall.meloooncensor.lib.org.json</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>com.github.zafarkhaja.semver</pattern>
+              <shadedPattern>io.github.jacobmarshall.meloooncensor.lib.com.github.zafarkhaja.semver</shadedPattern>
             </relocation>
           </relocations>
         </configuration>

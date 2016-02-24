@@ -23,10 +23,17 @@ public class PlayerJoinEventListener implements Listener {
     public void onPlayerJoin (PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        if (player.isOp() && updater.isUpdateAvailable()) {
-            Release release = updater.getLatestRelease();
-            player.sendMessage(ChatColor.GRAY + "You're currently running MelooonCensor v" + plugin.getDescription().getVersion() + ", which is currently not the latest version.");
-            if (release.hasSummary()) player.sendMessage(ChatColor.GRAY + release.getSummary());
+        if (player.isOp()) {
+            if (updater.isUpdateAvailable()) {
+                Release release = updater.getLatestRelease();
+                player.sendMessage(ChatColor.GRAY + "You're currently running MelooonCensor v" + plugin.getDescription().getVersion() + ", which is currently not the latest version.");
+                if (release.hasSummary()) player.sendMessage(ChatColor.GRAY + release.getSummary());
+            } else if (updater.isRunningPreRelease()) {
+                player.sendMessage(ChatColor.RED +
+                        "You're currently running a pre-release version of MelooonCensor." +
+                        "If you encounter any bugs or issues, please report them. " +
+                        "This pre-release has been compiled for development/evaluation purposes ONLY.");
+            }
         }
     }
 
