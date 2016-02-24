@@ -5,6 +5,7 @@ import io.github.jacobmarshall.meloooncensor.MelooonCensor;
 import io.github.jacobmarshall.meloooncensor.filter.ClassicFilter;
 import io.github.jacobmarshall.meloooncensor.filter.Filter;
 import io.github.jacobmarshall.meloooncensor.filter.StrictFilter;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -250,6 +251,10 @@ public class Configuration {
 
     public String getMessage () {
         return message;
+    }
+
+    public String getFormattedMessage () {
+        return ChatColor.translateAlternateColorCodes('&', message);
     }
 
 }
