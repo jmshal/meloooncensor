@@ -9,6 +9,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Configuration {
@@ -254,7 +255,21 @@ public class Configuration {
     }
 
     public String getFormattedMessage () {
-        return ChatColor.translateAlternateColorCodes('&', message);
+        return getFormattedMessage(null);
+    }
+
+    public String getFormattedMessage (HashMap<String, String> values) {
+        // Translate the alt color codes first, in case of user input
+        String message = ChatColor.translateAlternateColorCodes('&', getMessage());
+
+        if (values != null && values.size() > 0) {
+            for (String key : values.keySet()) {
+                // {player} => jacoooooooooooob
+                message = message.replaceAll("\\{" + key + "\\}", values.get(key));
+            }
+        }
+
+        return message;
     }
 
 }
