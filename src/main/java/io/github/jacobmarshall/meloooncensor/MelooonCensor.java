@@ -10,7 +10,6 @@ import io.github.jacobmarshall.meloooncensor.listener.UnhandledExceptionListener
 import io.github.jacobmarshall.meloooncensor.log.ViolationLogger;
 import io.github.jacobmarshall.meloooncensor.updater.CheckForUpdatesTask;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mcstats.Metrics;
 
 import java.io.IOException;
 
@@ -27,15 +26,6 @@ public class MelooonCensor extends JavaPlugin {
         bugsnag.setAppVersion(getDescription().getVersion());
         bugsnag.setProjectPackages("io.github.jacobmarshall.meloooncensor");
         bugsnag.addBeforeNotify(new UnhandledExceptionListener());
-    }
-
-    protected void startMetrics () {
-        try {
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-        } catch (IOException e) {
-            getLogger().warning("Failed to start metrics.");
-        }
     }
 
     protected void createViolationLoggers () {
@@ -76,7 +66,6 @@ public class MelooonCensor extends JavaPlugin {
     @Override
     public void onEnable () {
         startBugsnag();
-        startMetrics();
         setupConfig();
         createViolationLoggers();
         registerEvents();

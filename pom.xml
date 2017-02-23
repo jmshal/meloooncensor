@@ -31,17 +31,12 @@
                 <configuration>
                     <artifactSet>
                         <includes>
-                            <include>org.mcstats.*:*</include>
                             <include>com.bugsnag:*</include>
                             <include>org.json:*</include>
                             <include>com.github.zafarkhaja:*</include>
                         </includes>
                     </artifactSet>
                     <relocations>
-                        <relocation>
-                            <pattern>org.mcstats</pattern>
-                            <shadedPattern>io.github.jacobmarshall.meloooncensor.lib.org.mcstats</shadedPattern>
-                        </relocation>
                         <relocation>
                             <pattern>com.bugsnag</pattern>
                             <shadedPattern>io.github.jacobmarshall.meloooncensor.lib.com.bugsnag</shadedPattern>
@@ -81,10 +76,6 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
-        <repository>
-            <id>plugin-metrics</id>
-            <url>http://repo.mcstats.org/content/repositories/public</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -99,12 +90,6 @@
             <artifactId>bukkit</artifactId>
             <version>1.10-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mcstats.bukkit</groupId>
-            <artifactId>metrics</artifactId>
-            <version>R8-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.bugsnag</groupId>
