@@ -5,6 +5,7 @@ import io.github.jacobmarshall.meloooncensor.MelooonCensor;
 import io.github.jacobmarshall.meloooncensor.filter.ClassicFilter;
 import io.github.jacobmarshall.meloooncensor.filter.Filter;
 import io.github.jacobmarshall.meloooncensor.filter.StrictFilter;
+import io.github.jacobmarshall.meloooncensor.filter.WordFilter;
 import io.github.jacobmarshall.meloooncensor.lang.Translation;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -169,6 +170,10 @@ public class Configuration {
                 // ClassicFilter takes any words that contain/are censored words, which aren't ignored words,
                 // and censors the whole word.
                 filter = new ClassicFilter(this);
+                break;
+            case "word":
+                // WordFilter censor only exact word. List of ignored words are ignored in this case.
+                filter = new WordFilter(this);
                 break;
             default:
                 try {
