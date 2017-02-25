@@ -25,8 +25,16 @@ public class Translation {
     }
 
     public String getText (String key) {
-        return this.translations.getProperty(key, this.allowFallback ?
+        String text = this.translations.getProperty(key, this.allowFallback ?
             DEFAULT_TRANSLATION.getText(key) : "i18n:" + key);
+
+        try {
+            text = new String(text.getBytes("ISO-8859-1"), "UTF-8");
+        } catch(Exception e) {
+            // Ignore, keep old encoding
+        }
+
+        return text;
     }
 
     private static Properties getTranslations (String language) {
