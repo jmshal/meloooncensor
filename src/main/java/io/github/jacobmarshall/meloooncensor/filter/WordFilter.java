@@ -13,10 +13,20 @@ public class WordFilter extends ClassicFilter {
     }
 
     @Override
+    protected boolean isCensoredWord(String word) {
+        return config.getCensor().contains(word);
+    }
+
+    @Override
+    protected boolean isIgnoredWord(String word) {
+        return config.getIgnore().contains(word);
+    }
+
+    @Override
     public boolean violatesPolicy(String message) {
         String[] words = WORD_SPLIT.split(message);
         for (String word : words) {
-            if (this.config.getCensor().contains(word.toLowerCase())) {
+            if (config.getCensor().contains(word.toLowerCase())) {
                 return true;
             }
         }

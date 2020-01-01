@@ -14,35 +14,38 @@ Your ideas and issues are welcome in the discussion thread, or on GitHub issues 
 - Fully customisable censor list
 - Censors text on signs **[NEW]**
 - 3rd party filter support (currently in beta)
-- Multiple chat filters (**classic** - which censors words which are on your censor list, and **strict** - which prevents messages from sending if they contain any words which are on the censor list)
+- Multiple chat filters:
+  - **classic** - which censors words which are on your censor list
+  - **strict** - which prevents messages from sending if they contain any words which are on the censor list
+  - **word** - which mask words from list with `****`
 - An ignore list (for any words which contain bad words, but aren't bad themselves)
 - Automatic update notifications (the plugin ties into GitHub, and notifies you when there is a new version available)
 - Helpful commands to allow you to add words on the fly (without needing to touch the configuration file)
 - Command aliases to make configuring quick and easy
 
 ## Commands
-- /censor add (censor|ignore) (word)  
+- `/censor add (censor|ignore) (word)`  
 Adds a word to either the censor or ignore list.  
-**Permission:** *meloooncensor.add.censor* and *meloooncensor.add.ignore*
+**Permission:** `meloooncensor.add.censor` and `meloooncensor.add.ignore`
 
-- /censor remove (censor|ignore) (word)  
+- `/censor remove (censor|ignore) (word)`  
 Removes a word from either the censor or ignore list.  
-**Permission:** *meloooncensor.remove.censor* and *meloooncensor.remove.ignore*
+**Permission:** `meloooncensor.remove.censor` and `meloooncensor.remove.ignore`
 
-- /censor list [censor|ignore]  
+- `/censor list [censor|ignore]`  
 Displays the words in either the censor or ignore list (or both if omitted).  
-**Permission:** *meloooncensor.list.censor* and *meloooncensor.list.ignore*
+**Permission:** `meloooncensor.list.censor` and `meloooncensor.list.ignore`
 
-- /censor (enable|disable)  
+- `/censor (enable|disable)`  
 Enables or disables the censor filter.  
-**Permission:** *meloooncensor.enable* and *meloooncensor.disable*
+**Permission:** `meloooncensor.enable` and `meloooncensor.disable`
 
-- /censor reload  
+- `/censor reload`  
 Reloads any modifications made to the config.yml file.  
-**Permission:** *meloooncensor.reload*
+**Permission:** `meloooncensor.reload`
 
 ## Permissions
-- meloooncensor.bypass  
+- `meloooncensor.bypass`  
 Bypasses the censor filter when assigned to a user/group.
 
 
