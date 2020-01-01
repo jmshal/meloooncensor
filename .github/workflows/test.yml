@@ -6,8 +6,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 1
 
     steps:
       - uses: actions/checkout@v1
@@ -15,9 +13,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Compile
-        run: |
-          mvn compile
       - name: Test
         run: |
-          mvn test
+          mvn -B test
