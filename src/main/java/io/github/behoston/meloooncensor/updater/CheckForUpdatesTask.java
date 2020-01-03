@@ -1,8 +1,8 @@
-package io.github.jacobmarshall.meloooncensor.updater;
+package io.github.behoston.meloooncensor.updater;
 
 import com.bugsnag.Client;
 import com.github.zafarkhaja.semver.Version;
-import io.github.jacobmarshall.meloooncensor.MelooonCensor;
+import io.github.behoston.meloooncensor.MelooonCensor;
 import org.json.JSONArray;
 
 import java.io.BufferedReader;
@@ -15,7 +15,7 @@ public class CheckForUpdatesTask implements Runnable {
 
     public static final String API_URL = "https://api.github.com";
     public static final String API_ACCEPT = "application/vnd.github.v3+json";
-    public static final String REPO = "jacobmarshall/meloooncensor";
+    public static final String REPO = "behoston/meloooncensor";
 
     private MelooonCensor plugin;
     private Version version;

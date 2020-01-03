@@ -1,9 +1,9 @@
-package io.github.jacobmarshall.meloooncensor.listener;
+package io.github.behoston.meloooncensor.listener;
 
-import io.github.jacobmarshall.meloooncensor.MelooonCensor;
-import io.github.jacobmarshall.meloooncensor.config.Configuration;
-import io.github.jacobmarshall.meloooncensor.updater.CheckForUpdatesTask;
-import io.github.jacobmarshall.meloooncensor.updater.Release;
+import io.github.behoston.meloooncensor.MelooonCensor;
+import io.github.behoston.meloooncensor.config.Configuration;
+import io.github.behoston.meloooncensor.updater.CheckForUpdatesTask;
+import io.github.behoston.meloooncensor.updater.Release;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

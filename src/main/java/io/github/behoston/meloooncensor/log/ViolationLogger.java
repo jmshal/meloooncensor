@@ -1,4 +1,4 @@
-package io.github.jacobmarshall.meloooncensor.log;
+package io.github.behoston.meloooncensor.log;
 
 import org.bukkit.entity.Player;
 

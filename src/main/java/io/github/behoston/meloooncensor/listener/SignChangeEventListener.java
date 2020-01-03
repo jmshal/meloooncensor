@@ -1,7 +1,7 @@
-package io.github.jacobmarshall.meloooncensor.listener;
+package io.github.behoston.meloooncensor.listener;
 
-import io.github.jacobmarshall.meloooncensor.config.Configuration;
-import io.github.jacobmarshall.meloooncensor.log.ViolationLogger;
+import io.github.behoston.meloooncensor.log.ViolationLogger;
+import io.github.behoston.meloooncensor.config.Configuration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

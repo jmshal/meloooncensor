@@ -1,6 +1,6 @@
-package io.github.jacobmarshall.meloooncensor.command;
+package io.github.behoston.meloooncensor.command;
 
-import io.github.jacobmarshall.meloooncensor.config.Configuration;
+import io.github.behoston.meloooncensor.config.Configuration;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

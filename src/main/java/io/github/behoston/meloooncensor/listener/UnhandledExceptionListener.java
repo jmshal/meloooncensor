@@ -1,4 +1,4 @@
-package io.github.jacobmarshall.meloooncensor.listener;
+package io.github.behoston.meloooncensor.listener;
 
 import com.bugsnag.BeforeNotify;
 import com.bugsnag.Error;
@@ -11,7 +11,7 @@ public class UnhandledExceptionListener implements BeforeNotify {
 
         for (StackTraceElement frame : stackTrace) {
             // Only send errors that occur within/include our namespace
-            if (frame.getClassName().startsWith("io.github.jacobmarshall.meloooncensor")) {
+            if (frame.getClassName().startsWith("io.github.behoston.meloooncensor")) {
                 return true;
             }
         }
