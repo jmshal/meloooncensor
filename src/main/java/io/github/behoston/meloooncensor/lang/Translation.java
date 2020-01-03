@@ -1,6 +1,6 @@
-package io.github.jacobmarshall.meloooncensor.lang;
+package io.github.behoston.meloooncensor.lang;
 
-import io.github.jacobmarshall.meloooncensor.config.Configuration;
+import io.github.behoston.meloooncensor.config.Configuration;
 
 import java.io.IOException;
 import java.io.InputStream;

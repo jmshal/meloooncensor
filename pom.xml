@@ -6,7 +6,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <groupId>io.github.jacobmarshall.meloooncensor</groupId>
+    <groupId>io.github.behoston.meloooncensor</groupId>
     <artifactId>meloooncensor</artifactId>
     <version>3.0.9</version>
 
@@ -19,7 +19,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>io.github.jacobmarshall.meloooncensor.MelooonCensor</mainClass>
+                            <mainClass>io.github.behoston.meloooncensor.MelooonCensor</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -42,15 +42,15 @@
                     <relocations>
                         <relocation>
                             <pattern>com.bugsnag</pattern>
-                            <shadedPattern>io.github.jacobmarshall.meloooncensor.lib.com.bugsnag</shadedPattern>
+                            <shadedPattern>io.github.behoston.meloooncensor.lib.com.bugsnag</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>org.json</pattern>
-                            <shadedPattern>io.github.jacobmarshall.meloooncensor.lib.org.json</shadedPattern>
+                            <shadedPattern>io.github.behoston.meloooncensor.lib.org.json</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.github.zafarkhaja.semver</pattern>
-                            <shadedPattern>io.github.jacobmarshall.meloooncensor.lib.com.github.zafarkhaja.semver</shadedPattern>
+                            <shadedPattern>io.github.behoston.meloooncensor.lib.com.github.zafarkhaja.semver</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

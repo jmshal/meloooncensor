@@ -1,12 +1,12 @@
-package io.github.jacobmarshall.meloooncensor.config;
+package io.github.behoston.meloooncensor.config;
 
 import com.bugsnag.Client;
-import io.github.jacobmarshall.meloooncensor.MelooonCensor;
-import io.github.jacobmarshall.meloooncensor.filter.ClassicFilter;
-import io.github.jacobmarshall.meloooncensor.filter.Filter;
-import io.github.jacobmarshall.meloooncensor.filter.StrictFilter;
-import io.github.jacobmarshall.meloooncensor.filter.WordFilter;
-import io.github.jacobmarshall.meloooncensor.lang.Translation;
+import io.github.behoston.meloooncensor.MelooonCensor;
+import io.github.behoston.meloooncensor.filter.ClassicFilter;
+import io.github.behoston.meloooncensor.filter.Filter;
+import io.github.behoston.meloooncensor.filter.StrictFilter;
+import io.github.behoston.meloooncensor.filter.WordFilter;
+import io.github.behoston.meloooncensor.lang.Translation;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;

@@ -1,14 +1,14 @@
-package io.github.jacobmarshall.meloooncensor;
+package io.github.behoston.meloooncensor;
 
 import com.bugsnag.Client;
-import io.github.jacobmarshall.meloooncensor.config.Configuration;
-import io.github.jacobmarshall.meloooncensor.listener.ChatEventListener;
-import io.github.jacobmarshall.meloooncensor.command.CensorCommandExecutor;
-import io.github.jacobmarshall.meloooncensor.listener.PlayerJoinEventListener;
-import io.github.jacobmarshall.meloooncensor.listener.SignChangeEventListener;
-import io.github.jacobmarshall.meloooncensor.listener.UnhandledExceptionListener;
-import io.github.jacobmarshall.meloooncensor.log.ViolationLogger;
-import io.github.jacobmarshall.meloooncensor.updater.CheckForUpdatesTask;
+import io.github.behoston.meloooncensor.log.ViolationLogger;
+import io.github.behoston.meloooncensor.config.Configuration;
+import io.github.behoston.meloooncensor.listener.ChatEventListener;
+import io.github.behoston.meloooncensor.command.CensorCommandExecutor;
+import io.github.behoston.meloooncensor.listener.PlayerJoinEventListener;
+import io.github.behoston.meloooncensor.listener.SignChangeEventListener;
+import io.github.behoston.meloooncensor.listener.UnhandledExceptionListener;
+import io.github.behoston.meloooncensor.updater.CheckForUpdatesTask;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class MelooonCensor extends JavaPlugin {
     protected void startBugsnag () {
         bugsnag = new Client("b5347687fe92ee7494d20cdf5a725fad");
         bugsnag.setAppVersion(getDescription().getVersion());
-        bugsnag.setProjectPackages("io.github.jacobmarshall.meloooncensor");
+        bugsnag.setProjectPackages("io.github.behoston.meloooncensor");
         bugsnag.addBeforeNotify(new UnhandledExceptionListener());
     }
 

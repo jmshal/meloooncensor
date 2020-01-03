@@ -1,6 +1,6 @@
-package io.github.jacobmarshall.meloooncensor.filter;
+package io.github.behoston.meloooncensor.filter;
 
-import io.github.jacobmarshall.meloooncensor.config.Configuration;
+import io.github.behoston.meloooncensor.config.Configuration;
 
 public class StrictFilter extends ClassicFilter {
 

@@ -1,4 +1,4 @@
-package io.github.jacobmarshall.meloooncensor.updater;
+package io.github.behoston.meloooncensor.updater;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

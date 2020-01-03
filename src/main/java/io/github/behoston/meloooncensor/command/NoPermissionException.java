@@ -1,3 +1,3 @@
-package io.github.jacobmarshall.meloooncensor.command;
+package io.github.behoston.meloooncensor.command;
 
 public class NoPermissionException extends Exception {}
