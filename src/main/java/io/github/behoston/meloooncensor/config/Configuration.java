@@ -24,15 +24,26 @@ public class Configuration {
     public static final String CENSOR = "censor.list";
     public static final String IGNORE = "censor.ignore";
     public static final String MESSAGE = "censor.message";
+    public static final String ENABLE_PUNISH = "censor.punish.enable";
+
+    public static final String MESSAGE_PUNISH_COMMAND = "censor.punish.message";
+    public static final String COMMAND = "censor.punish.command";
+    public static final String PLAY_TIME = "censor.punish.playtime";
+    public static final String MISTAKES = "censor.punish.mistakes";
 
     public static final boolean DEFAULT_ENABLE = true;
     public static final boolean DEFAULT_BYPASS = false;
     public static final String DEFAULT_LANGUAGE = "en";
     public static final String DEFAULT_TYPE = "classic";
     public static final char DEFAULT_CHAR = '*';
-    public static final String[] DEFAULT_CENSOR = new String[] {"fuck", "shit", "piss", "bitch"};
-    public static final String[] DEFAULT_IGNORE = new String[] {"shitsu"};
+    public static final String[] DEFAULT_CENSOR = new String[]{"fuck", "shit", "piss", "bitch"};
+    public static final String[] DEFAULT_IGNORE = new String[]{"shitsu"};
     public static final String DEFAULT_MESSAGE = "Please don't use that kind of language on this server, {player}.";
+    public static final boolean DEFAULT_PUNISH_ENABLE = true;
+    public static final String DEFAULT_PUNISH_MESSAGE = "Player {player} has been kicked for {mistakes} mistakes.";
+    public static final String DEFAULT_PUNISH_COMMAND = "kick {player}";
+    public static final Long DEFAULT_PLAY_TIME = 86400L;
+    public static final Integer DEFAULT_MISTAKES = 2;
 
     MelooonCensor plugin;
     Client bugsnag;
@@ -47,18 +58,23 @@ public class Configuration {
     List<String> censor;
     List<String> ignore;
     String message;
+    boolean enabled_punish;
+    String messagePermission;
+    String command;
+    Long play_time;
+    Integer mistakes;
 
-    public Configuration (MelooonCensor plugin, Client bugsnag) {
+    public Configuration(MelooonCensor plugin, Client bugsnag) {
         this.plugin = plugin;
         this.bugsnag = bugsnag;
         load();
     }
 
-    protected FileConfiguration getConfig () {
+    protected FileConfiguration getConfig() {
         return plugin.getConfig();
     }
 
-    private void addDefaults () {
+    private void addDefaults() {
         getConfig().options().header("MelooonCensor Configuration");
         getConfig().addDefault(ENABLE, DEFAULT_ENABLE);
         getConfig().addDefault(BYPASS, DEFAULT_BYPASS);
@@ -68,11 +84,17 @@ public class Configuration {
         getConfig().addDefault(CENSOR, DEFAULT_CENSOR);
         getConfig().addDefault(IGNORE, DEFAULT_IGNORE);
         getConfig().addDefault(MESSAGE, DEFAULT_MESSAGE);
+        getConfig().addDefault(MESSAGE_PUNISH_COMMAND, DEFAULT_PUNISH_MESSAGE);
+        getConfig().addDefault(ENABLE_PUNISH, DEFAULT_PUNISH_ENABLE);
+        getConfig().addDefault(COMMAND, DEFAULT_PUNISH_COMMAND);
+        getConfig().addDefault(PLAY_TIME, DEFAULT_PLAY_TIME);
+        getConfig().addDefault(MISTAKES, DEFAULT_MISTAKES);
+
         getConfig().options().copyDefaults(true);
         saveConfig();
     }
 
-    private void loadConfig () {
+    private void loadConfig() {
         plugin.reloadConfig();
         setEnabled(getConfig().getBoolean(ENABLE));
         setBypass(getConfig().getBoolean(BYPASS));
@@ -82,13 +104,19 @@ public class Configuration {
         setCensor(getConfig().getStringList(CENSOR));
         setIgnore(getConfig().getStringList(IGNORE));
         setMessage(getConfig().getString(MESSAGE));
+        setEnabledPunish(getConfig().getBoolean(ENABLE_PUNISH));
+        setMessagePermission(getConfig().getString(MESSAGE_PUNISH_COMMAND));
+        setCommand(getConfig().getString(COMMAND));
+        setTime(getConfig().getLong(PLAY_TIME));
+        setMistakes(getConfig().getInt(MISTAKES));
+
     }
 
-    private void saveConfig () {
+    private void saveConfig() {
         plugin.saveConfig();
     }
 
-    public void save () {
+    public void save() {
         getConfig().set(ENABLE, enabled);
         getConfig().set(BYPASS, bypass);
         getConfig().set(LANGUAGE, language);
@@ -97,69 +125,75 @@ public class Configuration {
         getConfig().set(CENSOR, censor);
         getConfig().set(IGNORE, ignore);
         getConfig().set(MESSAGE, message);
+        getConfig().set(ENABLE_PUNISH, enabled_punish);
+        getConfig().set(MESSAGE_PUNISH_COMMAND, messagePermission);
+        getConfig().set(COMMAND, command);
+        getConfig().set(PLAY_TIME, play_time);
+        getConfig().set(MISTAKES, mistakes);
+
         saveConfig();
     }
 
-    public void load () {
+    public void load() {
         addDefaults();
         loadConfig();
     }
 
-    public void reload () {
+    public void reload() {
         loadConfig();
     }
 
-    public void setEnabled (boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public boolean isEnabled () {
+    public boolean isEnabled() {
         return enabled;
     }
 
-    public void setBypass (boolean bypass) {
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void setBypass(boolean bypass) {
         this.bypass = bypass;
     }
 
-    public boolean allowBypass () {
+    public boolean allowBypass() {
         return bypass;
     }
 
-    public boolean allowBypass (Player player) {
+    public boolean allowBypass(Player player) {
         return allowBypass() && player.hasPermission("meloooncensor.bypass");
     }
 
-    public String getLanguage () {
+    public String getLanguage() {
         return language;
     }
 
-    public void setLanguage (String language) {
+    public void setLanguage(String language) {
         this.language = language;
         updateTranslation();
     }
 
-    public void updateTranslation () {
+    public void updateTranslation() {
         translation = new Translation(language);
     }
 
-    public Translation getTranslation () {
+    public Translation getTranslation() {
         return translation;
     }
 
-    public void setType (String type) {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
         this.type = type;
         updateFilter();
     }
 
-    public String getType () {
-        return type;
-    }
-
-    public Filter getFilter () {
+    public Filter getFilter() {
         return filter;
     }
 
-    private void updateFilter () {
+    private void updateFilter() {
         switch (getType()) {
             case "strict":
                 // StrictFilter extends from ClassicFilter's detection technique, but doesn't allow any messages
@@ -197,34 +231,34 @@ public class Configuration {
         }
     }
 
-    public void setCharString (String _char) {
+    public String getCharString() {
+        return String.valueOf(getChar());
+    }
+
+    public void setCharString(String _char) {
         if (_char != null) {
             this._char = _char.charAt(0);
         }
     }
 
-    public void setChar (char _char) {
-        this._char = _char;
-    }
-
-    public String getCharString () {
-        return String.valueOf(getChar());
-    }
-
-    public char getChar () {
+    public char getChar() {
         return _char;
     }
 
-    public void setCensor (List<String> censor) {
-        this.censor = censor;
+    public void setChar(char _char) {
+        this._char = _char;
     }
 
-    public List<String> getCensor () {
+    public List<String> getCensor() {
         return censor;
     }
 
-    public boolean addCensor (String word) {
-        if ( ! censor.contains(word)) {
+    public void setCensor(List<String> censor) {
+        this.censor = censor;
+    }
+
+    public boolean addCensor(String word) {
+        if (!censor.contains(word)) {
             censor.add(word);
             return true;
         } else {
@@ -232,7 +266,7 @@ public class Configuration {
         }
     }
 
-    public boolean removeCensor (String word) {
+    public boolean removeCensor(String word) {
         if (censor.contains(word)) {
             censor.remove(word);
             return true;
@@ -241,20 +275,20 @@ public class Configuration {
         }
     }
 
-    public void clearCensor () {
+    public void clearCensor() {
         censor.clear();
     }
 
-    public void setIgnore (List<String> ignore) {
-        this.ignore = ignore;
-    }
-
-    public List<String> getIgnore () {
+    public List<String> getIgnore() {
         return ignore;
     }
 
-    public boolean addIgnore (String word) {
-        if ( ! ignore.contains(word)) {
+    public void setIgnore(List<String> ignore) {
+        this.ignore = ignore;
+    }
+
+    public boolean addIgnore(String word) {
+        if (!ignore.contains(word)) {
             ignore.add(word);
             return true;
         } else {
@@ -262,7 +296,7 @@ public class Configuration {
         }
     }
 
-    public boolean removeIgnore (String word) {
+    public boolean removeIgnore(String word) {
         if (ignore.contains(word)) {
             ignore.remove(word);
             return true;
@@ -271,23 +305,15 @@ public class Configuration {
         }
     }
 
-    public void clearIgnore () {
-        ignore.clear();
-    }
-
-    public void setMessage (String message) {
-        this.message = message;
-    }
-
-    public String getMessage () {
+    public String getMessage() {
         return message;
     }
 
-    public String getFormattedMessage () {
-        return getFormattedMessage(null);
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getFormattedMessage (HashMap<String, String> values) {
+    public String getFormattedMessage(HashMap<String, String> values) {
         // Translate the alt color codes first, in case of user input
         String message = ChatColor.translateAlternateColorCodes('&', getMessage());
 
@@ -301,4 +327,66 @@ public class Configuration {
         return message;
     }
 
+    public String getMessagePermission() {
+        return messagePermission;
+    }
+
+    public void setMessagePermission(String messagePermission) {
+        this.messagePermission = messagePermission;
+    }
+
+    public String getFormattedMessagePermission(String playerName, Integer mistakes) {
+        // Translate the alt color codes first, in case of user input
+        String messagePermission = ChatColor.translateAlternateColorCodes('&', getMessagePermission());
+        messagePermission = messagePermission.replaceAll("\\{player}", playerName);
+        messagePermission = messagePermission.replaceAll("\\{mistakes}", mistakes.toString());
+        return messagePermission;
+    }
+
+    public String getCommand() {
+        return command;
+    }
+
+    public void setCommand(String command) {
+        this.command = command;
+    }
+
+    public boolean isEnabledPunish() {
+        return enabled_punish;
+    }
+
+    public void setEnabledPunish(boolean enabled_punish) {
+        this.enabled_punish = enabled_punish;
+    }
+
+    public String getCommandForPemission(HashMap<String, String> values) {
+        // Translate the alt color codes first, in case of user input
+        String command = ChatColor.translateAlternateColorCodes('&', getCommand());
+
+        if (values != null && values.size() > 0) {
+            for (String key : values.keySet()) {
+                // {player} => jacoooooooooooob
+                command = command.replaceAll("\\{" + key + "}", values.get(key));
+
+            }
+        }
+
+        return command;
+    }
+
+    public long getTime() {
+        return play_time;
+    }
+
+    public void setTime(long play_time) {
+        this.play_time = play_time;
+    }
+
+    public Integer getMistakes() {
+        return mistakes;
+    }
+
+    public void setMistakes(Integer mistakes) {
+        this.mistakes = mistakes;
+    }
 }

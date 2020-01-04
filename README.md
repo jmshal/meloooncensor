@@ -11,6 +11,7 @@ MelooonCensor returns! Once again!
 Orignal plugin: https://github.com/jmshal/meloooncensor
 
 ## Features
+
 - Fully customisable censor list
 - Censors text on signs
 - 3rd party filter support (currently in beta)
@@ -24,6 +25,7 @@ Orignal plugin: https://github.com/jmshal/meloooncensor
 - Command aliases to make configuring quick and easy
 
 ## Commands
+
 - `/censor add (censor|ignore) (word)`  
 Adds a word to either the censor or ignore list.  
 **Permission:** `meloooncensor.add.censor` and `meloooncensor.add.ignore`
@@ -45,8 +47,13 @@ Reloads any modifications made to the config.yml file.
 **Permission:** `meloooncensor.reload`
 
 ## Permissions
+
 - `meloooncensor.bypass`  
 Bypasses the censor filter when assigned to a user/group.
+
+- `meloooncensor.write`   
+Allow or not write sentences with censored words
+
 
 ## Download
 
